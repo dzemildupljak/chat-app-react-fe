@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import MessageForm from "../MessageForm/MessageForm";
-import messageService from "../../services/message.service";
 import "./Chat.css";
 import axios from "axios";
 const API_URL = process.env.REACT_APP_SERVER_URL;
 
 const Chat = (props) => {
   const [messages, setMessages] = useState([]);
+  const currentUser = useSelector((state) => state.user.currentUser);
   const receiver = useSelector((state) => state.user.receiver);
   const sender = useSelector((state) => state.user.currentUser);
   useEffect(() => {
@@ -25,7 +25,10 @@ const Chat = (props) => {
   return (
     <div className="col-8 px-0">
       <div className="bg-gray px-4 py-2 bg-light recent">
-        <p>Not yet loaded current user</p>
+        <p>
+          Logged in:{" "}
+          {currentUser ? currentUser.username : "Not yet loaded current user"}
+        </p>
       </div>
       <div className="px-4 py-5 chat-box bg-white">
         {receiver ? (
